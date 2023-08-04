@@ -29,23 +29,23 @@ int main(int ac, char **av)
 {
 	t_stack	*stacks;
 
-	if (ac >= 2)
+	if (ac < 2)
 	{
-		if (av_checker(ac, av) == -1)
-		{
-			write(2, "Error!\n", 7);
-			return (1);
-		}
-		stacks = NULL;
-		set_stacks(&stacks, ac, av);
-		if (stacks->topa == 4)
-			sort_five(stacks);
-		else if (stacks->topa == 2)
-			sort_three(stacks->stacka, stacks->topa);
-		print_stack(stacks->stacka, stacks->topa);
-		free_all(stacks);
-	}
-	else
 		write(2, "Error!\n", 7);
+		return (1);
+	}
+	if (av_checker(ac, av) == -1)
+	{
+		write(2, "Error!\n", 7);
+		return (1);
+	}
+	stacks = NULL;
+	set_stacks(&stacks, ac, av);
+	if (stacks->topa == 4)
+		sort_five(stacks);
+	else if (stacks->topa == 2)
+		sort_three(stacks->stacka, stacks->topa);
+	print_stack(stacks->stacka, stacks->topa);
+	free_all(stacks);
 	return (0);
 }
