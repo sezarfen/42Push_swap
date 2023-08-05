@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdundar <42istanbul.com.tr>                +#+  +:+       +#+        */
+/*   By: fdundar <fdundar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:47:44 by fdundar           #+#    #+#             */
-/*   Updated: 2023/07/04 09:47:53 by fdundar          ###   ########.fr       */
+/*   Updated: 2023/08/05 18:36:15 by fdundar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atoi(const char *str)
+void	throw_error()
+{
+	write(1, "Error!\n", 7);
+	exit(1);
+}
+
+int	ft_atoi(const char *str)
 {
 	int		i;
 	int		n;
@@ -31,9 +37,10 @@ long	ft_atoi(const char *str)
 	result = 0;
 	while (str[i] <= '9' && str[i] >= '0')
 	{
-		result *= 10;
-		result += str[i] - 48;
+		result = result * 10 + str[i] - 48;
+		if (result > 0x80000000 || result < -2147483648)
+			throw_error();
 		i++;
 	}
-	return (result * n);
+	return ((int)(result * n));
 }
