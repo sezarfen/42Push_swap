@@ -1,116 +1,282 @@
 #include "push_swap.h"
 
-
 /*
-
-[2]
-[3]
+[4]
+[6]
 [1]
-
-[3]
-[2]
-[1]
-
-
-[3]
-[2]
-[1]
-
+[3]		[11]
+[9]		[7]
+[5]		[2]
 */
+// aralık sayıyı bulan bir algoritma yazıladabilir
 
-void	five_nest(t_stack *stacks, int i_min)
+// pb pb ile başlanabilir
+void	big_sort(t_stack *stacks)
 {
-	if (i_min >= stacks->topa / 2) // 3 / 2 -> 1
+	int	current_a;
+	int	indexb;
+
+	current_a = stacks->stacka[stacks->topa];
+	indexb = 0;
+	if(current_a > get_max_b(stacks, &indexb))
 	{
-		while (i_min < stacks->topa) // 2 < 3
-		{
-			ra(stacks->stacka, stacks->topa);
-			i_min++;
-		}
+		get_max_to_top(stacks, indexb);
+		pb(stacks);
 	}
-	else
+	else if (current_a < get_min_b(stacks, &indexb))
 	{
-		while (i_min >= 0)
-		{
-			rra(stacks->stacka, stacks->topa);
-			i_min--;
-		}
+		get_max_to_top(stacks, indexb);
+		pb(stacks);
+		rb(stacks->stackb, stacks->topb);
 	}
-	pb(stacks);
-	if (stacks->topa == 3)
-		sort_five(stacks);
-	else
+	else // ara bir sayı geldiğini anlayabiliriz
 	{
-		sort_three(stacks->stacka, stacks->topa);
-		pa(stacks);
-		pa(stacks);
+		get_mid_to_top(stacks, current_a);
+		pb(stacks);
+		if (stacks->topa == -1)
+			rrb(stacks->stackb, stacks->topb);
+		else
+		{
+			rb(stacks->stackb, stacks->topb);
+			rb(stacks->stackb, stacks->topb);
+		}
 	}
 }
 
-void	sort_five(t_stack *stacks)
+void	get_mid_to_top(t_stack *stacks, int current)
 {
 	int	i;
-	int	i_min;
-	int	min;
+	int	indexm;
+	int	mid;
+	int	flag;
 
-	if (is_sorted(stacks) == 1)
-		return ;
+	indexm = 0;
 	i = 0;
-	i_min = i;
-	min = stacks->stacka[i];
-	while (i <= stacks->topa)
+	mid = 0;
+	flag = 0;
+	while (i <= stacks->topb)
 	{
-		if (min > stacks->stacka[i])
+		mid = stacks->stackb[i];
+		if (current > mid && flag < mid)
 		{
-			min = stacks->stacka[i];
-			i_min = i;
+			flag = mid;
+			indexm = i;
 		}
 		i++;
 	}
-	five_nest(stacks, i_min);
-}
 
-void	three_nest(int *stacka, int topa, int i_max)
-{
-	if (i_max == 2)
+	if (indexm >= stacks->topb / 2)
 	{
-		ra(stacka, topa);
-		if (stacka[2] > stacka[1])
-			sa(stacka, topa);
-	}
-	else if (i_max == 1)
-	{
-		rra(stacka, topa);
-		if (stacka[2] > stacka[1])
-			sa(stacka, topa);
+		while (indexm < stacks->topb)
+		{
+			rb(stacks->stackb, stacks->topb);
+			indexm++;
+		}
 	}
 	else
 	{
-		if (stacka[2] > stacka[1])
-			sa(stacka, topa);
+		while (indexm >= 0)
+		{
+			rrb(stacks->stackb, stacks->topb);
+			indexm--;
+		}
 	}
 }
 
-void	sort_three(int *stacka, int topa)
+
+void	get_max_to_top(t_stack *stacks, int indexb)
+{
+	if (indexb >= stacks->topb / 2)
+	{
+		while (indexb < stacks->topb)
+		{
+			rb(stacks->stackb, stacks->topb);
+			indexb++;
+		}
+	}
+	else
+	{
+		while (indexb >= 0)
+		{
+			rrb(stacks->stackb, stacks->topb);
+			indexb--;
+		}
+	}
+}
+
+int	get_min_b(t_stack *stacks, int *indexb)
 {
 	int	i;
-	int	i_max;
+	int	min;
+
+	i = 0;
+	min = stacks->stackb[i];
+	while (i <= stacks->topb)
+	{
+		if (min > stacks->stackb[i])
+		{
+			min = stacks->stackb[i];
+			*indexb = i;
+		}
+		i++;
+	}
+	return (min);
+}
+
+int	get_max_b(t_stack *stacks, int *indexb)
+{
+	int	i;
 	int	max;
 
 	i = 0;
-	i_max = 0;
-	max = stacka[i];
-	while (i <= topa)
+	max = stacks->stackb[i];
+	while (i <= stacks->topb)
 	{
-		if (max < stacka[i])
+		if (max < stacks->stackb[i])
 		{
-			max = stacka[i];
-			i_max = i;
+			max = stacks->stackb[i];
+			*indexb = i;
 		}
 		i++;
-	} // find the max's index and send it to bottom
-	three_nest(stacka, topa, i_max);
+	}
+	return (max);
 }
+
+
+/*
+
+int	get_min_b(t_stack *stacks, int *index_minb)
+{
+	int	i;
+	int	min;
+
+	i = 0;
+	*index_minb = i;
+	min = stacks->stackb[i];
+	while (i < stacks->topb)
+	{
+		if (min > stacks->stackb[i])
+		{
+			min = stacks->stackb[i];
+			*index_minb = i;
+		}
+		i++;
+	}
+	return (min);
+}
+
+
+int	get_max_b(t_stack *stacks, int *index_mb)
+{
+	int	i;
+	int	max;
+
+	i = 0;
+	*index_mb = i;
+	max = stacks->stackb[i];
+	while (i < stacks->topb)
+	{
+		if (max < stacks->stackb[i])
+		{
+			max = stacks->stackb[i];
+			*index_mb = i;
+		}
+		i++;
+	}
+	return (max);
+}
+
+void	get_b_max_to_top(t_stack *stacks, int index_mb)
+{
+	if (index_mb >= stacks->topb / 2)
+	{
+		while (index_mb <= stacks->topb)
+		{
+			rb(stacks->stackb, stacks->topb);
+			index_mb++;
+		}
+	}
+	else
+	{
+		while (index_mb > 0)
+		{
+			rrb(stacks->stackb, stacks->topb);
+			index_mb--;
+		}
+	}
+}
+
+void	get_middle_to_top(t_stack *stacks, int value)
+{
+	int	i;
+	int	index;
+	int	mid;
+	int	current;
+
+	i = 0;
+	index = 0;
+	current = 0;
+	mid = stacks->stacka[i];
+	while (i < stacks->topb)
+	{
+		current = stacks->stacka[i];
+		if (value > current && current > mid)
+		{
+			mid = current;
+			index = i;
+		}
+		i++;
+	}
+
+	if (index > stacks->topb / 2)
+	{
+		while (index <= stacks->topb)
+		{
+			rb(stacks->stackb, stacks->topb);
+			index++;
+		}
+	}
+	else
+	{
+		while (index > 0)
+		{
+			rrb(stacks->stackb, stacks->topb);
+			index--;
+		}
+	}
+}
+
+void	big_sort(t_stack *stacks)
+{
+	int	maxb;
+	int	minb;
+	int	index_minb;
+	int	index_maxb;
+
+	pb(stacks);
+	pb(stacks);
+	index_maxb = 0;
+	index_minb = 0;
+	maxb = get_max_b(stacks, &index_maxb);
+	minb = get_min_b(stacks, &index_minb);
+
+	if (stacks->stacka[stacks->topa] > maxb)
+	{
+		get_b_max_to_top(stacks, index_maxb);
+		pb(stacks);
+	}
+	else if (stacks->stacka[stacks->topa] < minb)
+	{
+		get_b_max_to_top(stacks, index_maxb);
+		pb(stacks);
+	}
+	else
+	{
+		get_middle_to_top(stacks, stacks->stacka[stacks->topa]);
+		pb(stacks);
+	}
+}
+*/
 
 
 /*

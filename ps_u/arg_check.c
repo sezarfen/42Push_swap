@@ -1,32 +1,29 @@
 #include "push_swap.h"
 
-/* 
-• In case of error, it must display "Error" followed by a ’\n’ on the standard error.
-Errors include for example: some arguments aren’t integers, some arguments are
-bigger than an integer and/or there are duplicates.
-*/
+void	check_duplicates(t_stack *stacks)
+{
+	int	i;
+	int	j;
 
-
-// FIND SOLUTION FOR DUPLICATES
-
-int check_max_int(int ac, char **av)
-{  // long çevirmesi yapılıp bakılabilir, (long ft_atoi)
-	int		i;
-	long	num;
-
-	i = 1;
-	num = 0;
-	while (i < ac)
+	i = 0;
+	while (i < stacks->topa)
 	{
-		num = ft_atoi(av[i]);
-		if (num > INT_MAX || num < INT_MIN)
-			return (-1);
+		j = i + 1;
+		while (j <= stacks->topa)
+		{
+			if (stacks->stacka[i] == stacks->stacka[j])
+			{
+				write(2, "Error!\n", 7);
+				free_all(stacks);
+				exit(1);				
+			}
+			j++;
+		}
 		i++;
 	}
-	return (1);
 }
 
-int check_single_arg(char **av)
+void check_single_arg(char **av)
 {
 	char	**split;
 	int		i;
@@ -40,16 +37,18 @@ int check_single_arg(char **av)
 		while (split[i][j])
 		{
 			if (!(split[i][j] <= '9' && split[i][j] >= '0'))
-				return (-1);
+			{
+				write(2, "Error!\n", 7);
+				exit(1);
+			}
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	return (1);
 }
 
-int av_checker(int ac, char **av)
+void av_checker(int ac, char **av)
 {
 	int	i;
 	int j;
@@ -63,11 +62,13 @@ int av_checker(int ac, char **av)
 		while (av[i][j])
 		{
 			if (!(av[i][j] <= '9' && av[i][j] >= '0'))
-				return (-1);
+			{
+				write(2, "Error!\n", 7);
+				exit(1);
+			}
 			j++;
 		}
 		i++;
 		j = 0;
 	}
-	return (check_max_int(ac, av));
 }

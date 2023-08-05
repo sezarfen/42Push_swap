@@ -1,4 +1,4 @@
-SRCS = push_swap.c rules.c utils.c sortings.c arg_check.c
+SRCS = push_swap.c rules.c utils.c sortings.c arg_check.c five_three.c
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap
 CFLAGS = -Werror -Wall -Wextra
@@ -13,13 +13,18 @@ $(NAME): $(OBJS) $(FT_PRINTF) $(LIBFT)
 $(FT_PRINTF):
 	@make -C ft_printf
 
+$(LIBFT):
+	@make -C libft
+
 clean:
 	rm -rf *.o
 	@make -C ft_printf clean
+	@make -C libft clean
 
 fclean: clean
 	rm -rf push_swap
 	@make -C ft_printf fclean
+	@make -C libft fclean
 
 re: fclean all
 

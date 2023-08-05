@@ -1,13 +1,7 @@
 #include "push_swap.h"
 
-
-/*
-[1]    [2]
-[2] -> [3]
-[3]    [1]
-*/
-
 // rra rrb rrr
+
 void	rra(int *stacka, int topa)
 {
 	int	temp;
@@ -42,11 +36,13 @@ void	rrb(int *stackb, int topb)
 
 void	rrr(t_stack *stacks)
 {
+	ft_printf("rrr\n");
 	rra(stacks->stacka, stacks->topa);
 	rrb(stacks->stackb, stacks->topb);
 }
 
 // ra rb rr
+
 void	ra(int *stacka, int topa)
 {
 	int	temp;
@@ -77,11 +73,10 @@ void	rb(int *stackb, int topb)
 
 void	rr(t_stack *stacks)
 {
+	ft_printf("rr\n");
 	ra(stacks->stacka, stacks->topa);
 	rb(stacks->stackb, stacks->topb);
 }
-
-
 
 // pa pb
 
@@ -107,10 +102,8 @@ void	pb(t_stack *stacks)
 	stacks->stackb[stacks->topb] = temp;
 }
 
-
-
-
 // sa sb ss
+
 void	sa(int *stacka, int top)
 {
 	int	temp;
