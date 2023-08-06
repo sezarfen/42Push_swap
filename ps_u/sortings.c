@@ -34,7 +34,10 @@ void	big_sort(t_stack *stacks)
 		get_mid_to_top(stacks, current_a);
 		pb(stacks);
 		if (stacks->topa == -1)
-			rrb(stacks->stackb, stacks->topb);
+		{
+			get_max_b(stacks, &indexb);
+			get_max_to_top(stacks, indexb);
+		}
 		else
 		{
 			rb(stacks->stackb, stacks->topb);
