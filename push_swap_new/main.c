@@ -57,7 +57,6 @@ int	main(int ac, char **av)
 
 	stacks = check_and_initialize(ac, av);
 	start_sorting(stacks);
-	print_stack(stacks);
 	free_all(stacks);
 	return (0);
 }
