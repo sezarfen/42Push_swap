@@ -41,6 +41,8 @@ void	start_sorting(t_stack *stacks)
 		free_all(stacks);
 		exit(1);
 	}
+	else if (stacks->topa == 1)
+		sa(stacks->stacka, stacks->topa);
 	else if (stacks->topa == 2)
 		three_sort(stacks);
 	else if (stacks->topa == 3)
