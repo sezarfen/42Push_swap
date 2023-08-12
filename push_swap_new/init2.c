@@ -3,6 +3,8 @@
 void	args_init_stacks(t_stack **stacks, int ac)
 {
 	(*stacks) = malloc(sizeof(t_stack));
+	if (!(*stacks))
+		ft_error((*stacks));
 	(*stacks)->stacka = malloc(sizeof(int) * (ac - 1));
 	(*stacks)->stackb = malloc(sizeof(int) * (ac - 1));
 	if (!(*stacks)->stacka || !(*stacks)->stackb)
