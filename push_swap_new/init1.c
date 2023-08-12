@@ -3,6 +3,8 @@
 void	split_init_stacks(t_stack **stacks, int len)
 {
 	(*stacks) = malloc(sizeof(t_stack));
+	if (!(*stacks))
+		ft_error((*stacks));
 	(*stacks)->stacka = malloc(sizeof(int) * (len));
 	(*stacks)->stackb = malloc(sizeof(int) * (len));
 	if (!(*stacks)->stacka || !(*stacks)->stackb)
