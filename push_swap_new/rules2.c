@@ -41,6 +41,6 @@ void	rrr(t_stack *stacks)
 
 void	check_result(long result, t_stack *stacks)
 {
-	if (result > 0x80000000 || result < -2147483648)
+	if (result >= 0x80000000 || result < -2147483648)
 		ft_error(stacks);
 }
