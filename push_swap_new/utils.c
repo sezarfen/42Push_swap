@@ -67,7 +67,7 @@ int	is_sorted(t_stack *stacks)
 	while (i < stacks->topa)
 	{
 		j = i + 1;
-		while (j < stacks->topa)
+		while (j <= stacks->topa)
 		{
 			if (stacks->stacka[i] < stacks->stacka[j])
 				return (-1);
