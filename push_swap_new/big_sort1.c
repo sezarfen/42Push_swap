@@ -113,7 +113,8 @@ void	big_sort(t_stack *stacks)
 	{
 		while (is_sorted(stacks) != 1)
 			ra(stacks->stacka, stacks->topa);
-		ra(stacks->stacka, stacks->topa);
+		if (is_sorted(stacks) != 1)
+			ra(stacks->stacka, stacks->topa);
 	}
 	else
 	{
