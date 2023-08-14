@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdundar <fdundar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdundar <42istanbul.com.tr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:47:44 by fdundar           #+#    #+#             */
-/*   Updated: 2023/08/05 18:36:15 by fdundar          ###   ########.fr       */
+/*   Updated: 2023/07/04 09:47:53 by fdundar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_atoi(const char *str)
 	result = 0;
 	while (str[i] <= '9' && str[i] >= '0')
 	{
-		result = result * 10 + str[i] - 48;
+		result *= 10;
+		result += str[i] - 48;
 		i++;
 	}
 	return (result * n);

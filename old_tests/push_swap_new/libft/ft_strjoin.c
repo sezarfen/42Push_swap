@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdundar <fdundar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdundar <42istanbul.com.tr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:56:04 by fdundar           #+#    #+#             */
-/*   Updated: 2023/08/14 13:03:31 by fdundar          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:15:51 by fdundar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		join[i++] = s2[j++];
 	join[i] = '\0';
-	free((void *)s1);
 	return (join);
 }

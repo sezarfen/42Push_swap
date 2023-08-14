@@ -1,62 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rules2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: 42istanbul <42istanbul.com.tr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 13:33:39 by 42istanbu         #+#    #+#             */
+/*   Updated: 2023/08/14 13:33:40 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	pa(t_stack *stacka, t_stack *stackb)
+void	rra(int *stacka, int topa)
 {
-	int topb;
-
-	ft_printf("pa\n");
-	topb = stackb->array[stackb->top - 1];
-	stackb->top--;
-	stacka->array[stacka->top] = topb;
-	stacka->top++;
-}
-
-void	pb(t_stack *stacka, t_stack *stackb)
-{
-	int topa;
-
-	ft_printf("pb\n");
-	topa = stacka->array[stacka->top - 1];
-	stacka->top--;
-	stackb->array[stackb->top] = topa;
-	stackb->top++;
-}
-
-void	ra(t_stack *stacka)
-{
-	int top;
+	int	temp;
 	int	i;
 
-	ft_printf("ra\n");
-	top = stacka->array[stacka->top - 1];
-	i = stacka->top - 1;
-	while (i > 0)
+	temp = stacka[0];
+	i = 0;
+	while (i < topa)
 	{
-		stacka->array[i] = stacka->array[i - 1];
-		i--;
+		stacka[i] = stacka[i + 1];
+		i++;
 	}
-	stacka->array[0] = top;
+	stacka[topa] = temp;
+	ft_printf("rra\n");
 }
 
-void	rb(t_stack *stackb)
+void	rrb(int *stackb, int topb)
 {
-	int top;
+	int	temp;
 	int	i;
 
-	ft_printf("rb\n");
-	top = stackb->array[stackb->top - 1];
-	i = stackb->top - 1;
-	while (i > 0)
+	temp = stackb[0];
+	i = 0;
+	while (i < topb)
 	{
-		stackb->array[i] = stackb->array[i - 1];
-		i--;
+		stackb[i] = stackb[i + 1];
+		i++;
 	}
-	stackb->array[0] = top;
+	stackb[topb] = temp;
+	ft_printf("rrb\n");
 }
 
-void	rr(t_stack *stacka, t_stack *stackb)
+void	rrr(t_stack *stacks)
 {
-	ft_printf("rr\n");
-	ra(stacka);
-	rb(stackb);
+	ft_printf("rrr\n");
+	rra(stacks->stacka, stacks->topa);
+	rrb(stacks->stackb, stacks->topb);
+}
+
+void	check_result(long result, t_stack *stacks)
+{
+	if (result >= 0x80000000 || result < -2147483648)
+		ft_error(stacks);
 }

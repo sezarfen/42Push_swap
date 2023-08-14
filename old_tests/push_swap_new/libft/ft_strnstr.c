@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdundar <fdundar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 09:47:44 by fdundar           #+#    #+#             */
-/*   Updated: 2023/08/05 18:36:15 by fdundar          ###   ########.fr       */
+/*   Created: 2023/07/04 09:57:00 by fdundar           #+#    #+#             */
+/*   Updated: 2023/07/07 09:54:56 by fdundar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strnstr(const char *hy, const char *n, size_t len)
 {
-	int	i;
-	int	n;
-	int	result;
+	size_t	i;
+	size_t	j;
 
+	if (!hy && !len)
+		return (0);
+	if (n[0] == '\0' || hy == n)
+		return ((char *)hy);
 	i = 0;
-	n = 1;
-	while ((str[i] <= 13 && str[i] >= 9) || str[i] == 32)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (hy[i])
 	{
-		if (str[i] == '-')
-			n *= -1;
+		j = 0;
+		while (hy[i + j] == n[j] && (i + j) < len)
+		{
+			if (hy[i + j] == '\0' && n[j] == '\0')
+				return ((char *)&hy[i]);
+			j++;
+		}
+		if (n[j] == '\0')
+			return ((char *)(hy + i));
 		i++;
 	}
-	result = 0;
-	while (str[i] <= '9' && str[i] >= '0')
-	{
-		result = result * 10 + str[i] - 48;
-		i++;
-	}
-	return (result * n);
+	return (0);
 }

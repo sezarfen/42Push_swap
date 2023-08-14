@@ -6,11 +6,8 @@ CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 
-${NAME}: OBJS
+${NAME}: ${OBJS}
 	${LIBC} ${NAME} ${OBJS}
-
-OBJS:
-	gcc $(CFLAGS) -c $(SRCS)
 
 all: ${NAME}
 
