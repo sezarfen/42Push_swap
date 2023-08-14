@@ -31,6 +31,8 @@ t_stack	*split_and_check(char **av)
 	int		slen;
 
 	stacks = NULL;
+	if (av[1][0] == '\0')
+		ft_error(stacks);
 	split = ft_split(av[1], ' ');
 	slen = split_len(split);
 	i = 0;
